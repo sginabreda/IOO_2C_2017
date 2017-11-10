@@ -6,8 +6,8 @@ public class ChequeTerceros extends Cheque {
 
 	private Estado estadoCheque;
 	
-	public ChequeTerceros(int numero, Date fechaEmision) {
-		super(numero, fechaEmision);
+	public ChequeTerceros(int numero, Date fechaEmision, double monto) {
+		super(numero, fechaEmision, monto);
 	}
 
 	public Estado getEstadoCheque() {

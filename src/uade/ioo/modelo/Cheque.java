@@ -2,15 +2,29 @@ package uade.ioo.modelo;
 
 import java.util.Date;
 
-public abstract class Cheque {
+public class Cheque {
 
-	protected int numero;
-	protected Date fechaEmision;
-	
-	public Cheque(int numero, Date fechaEmision) {
+	private int numero;
+	private Date fechaEmision;
+	private double monto;
+
+	public Cheque(int numero, Date fechaEmision, double monto) {
 		super();
 		this.numero = numero;
 		this.fechaEmision = fechaEmision;
+		this.monto = monto;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public Date getFechaEmision() {
+		return fechaEmision;
+	}
+
+	public double getMonto() {
+		return monto;
 	}
 	
 }
