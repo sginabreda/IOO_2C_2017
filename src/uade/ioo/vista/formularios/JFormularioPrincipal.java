@@ -8,14 +8,18 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class JFormularioMenu extends JFrame {
+import uade.ioo.modelo.AdministradorPagos;
+
+public class JFormularioPrincipal extends JFormularioBase {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JFormularioMenu() {
+	public JFormularioPrincipal(AdministradorPagos modelo) {
+		super(modelo);
+		
 		this.setSize(640, 480);
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO IOO 2C2017");
@@ -35,7 +39,7 @@ public class JFormularioMenu extends JFrame {
 		form_cheques_terceros.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFrame form1 = new JFormularioChequesTerceros();
+				JFrame form1 = new JFormularioRecibirCheque(getModelo());
 				form1.setVisible(true);
 				
 			}
@@ -47,18 +51,18 @@ public class JFormularioMenu extends JFrame {
 		form_pagar_servicio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFrame form2 = new JFormularioPagarServicio();
+				JFrame form2 = new JFormularioPagarServicio(getModelo());
 				form2.setVisible(true);
 			}
 		});
 		formularios.add(form_pagar_servicio);
 		
 		JMenuItem form_cheques_terc_vence;
-		form_cheques_terc_vence = new JMenuItem("Cheques de Terceros próximos a vencer");
+		form_cheques_terc_vence = new JMenuItem("Cheques de Terceros prï¿½ximos a vencer");
 		form_cheques_terc_vence.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFrame form3 = new JFormularioChequesAVencer();
+				JFrame form3 = new JFormularioChequesAVencer(getModelo());
 				form3.setVisible(true);
 			}
 		});

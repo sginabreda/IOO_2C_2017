@@ -1,12 +1,15 @@
 package uade.ioo.modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AdministradorPagos {
+import uade.ioo.modelo.observer.Observado;
+
+public class AdministradorPagos extends Observado{
 	Chequera c = new Chequera();
-	List<Cheque> listaChequesTerc = new ArrayList<Cheque>();
+	List<Cheque> cheques = new ArrayList<Cheque>();
 	
 	public void obtenerChequesParaPagar(double monto){
 		
@@ -20,10 +23,28 @@ public class AdministradorPagos {
 	}
 	
 	public void registrarChequeTerceros(int numero, Date fechaEmision, double monto){
-		listaChequesTerc.add(new ChequeTerceros(numero, fechaEmision, monto));
+		
+		//Calculo la fecha de vencimiento
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fechaEmision);
+		cal.add( Calendar.DATE, 30);
+		
+		this.cheques.add(new ChequeTerceros(numero, fechaEmision, cal.getTime() , monto));
+		this.notificarObservadores();
 	}
 	
 	public double getMontoDisponiblePagos(){
-		return 0;
+		
+		Date date = new Date();
+		double total = 0;
+		
+		for (Cheque cheque : cheques) {
+			
+			if(!date.after(cheque.getFechaVencimiento())){
+				total += cheque.getMonto();
+			}
+		}
+	
+		return total;
 	}
 }

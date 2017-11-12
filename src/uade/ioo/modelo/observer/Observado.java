@@ -15,7 +15,7 @@ public abstract class Observado {
 		this.observadores.remove(obs);
 	}
 	
-	public void notificar(){
+	public void notificarObservadores(){
 		for (IObservador obs : observadores) {
 			obs.actualizar();
 		}
