@@ -17,5 +17,10 @@ public class ChequeTerceros extends Cheque {
 	public void setEstadoCheque(Estado estadoCheque) {
 		this.estadoCheque = estadoCheque;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + "Terceros";
+	}
 
 }

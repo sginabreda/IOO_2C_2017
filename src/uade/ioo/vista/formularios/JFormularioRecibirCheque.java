@@ -3,14 +3,11 @@ package uade.ioo.vista.formularios;
 import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -127,6 +124,12 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 		txtNumero.setText("");
 		txtFechaEmision.setText("");
 		txtMonto.setText("");
+	}
+
+	@Override
+	public void actualizar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -5,8 +5,9 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 
 import uade.ioo.modelo.AdministradorPagos;
+import uade.ioo.modelo.observer.IObservador;
 
-public class JFormularioBase extends JFrame{
+public abstract class JFormularioBase extends JFrame implements IObservador{
 
 	/**
 	 * 
@@ -23,5 +24,7 @@ public class JFormularioBase extends JFrame{
 	public AdministradorPagos getModelo() {
 		return modelo;
 	}
+
+	public abstract void actualizar();
 
 }

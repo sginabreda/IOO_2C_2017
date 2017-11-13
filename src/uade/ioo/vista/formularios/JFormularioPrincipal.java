@@ -80,4 +80,10 @@ public class JFormularioPrincipal extends JFormularioBase {
 		formularios.add(form_reporte);
 	}
 
+	@Override
+	public void actualizar() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

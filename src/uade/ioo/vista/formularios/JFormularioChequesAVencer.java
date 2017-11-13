@@ -19,4 +19,10 @@ public class JFormularioChequesAVencer extends JFormularioBase {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
+	@Override
+	public void actualizar() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
