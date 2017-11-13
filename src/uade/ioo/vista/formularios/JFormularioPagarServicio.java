@@ -30,6 +30,7 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 	private JLabel lblNumero;
 	private JTextField txtMonto;
 	private JButton btnConsultar;
+	private TablaChequesDisponibles tablaChequesDisponibles;
 	
 	public JFormularioPagarServicio(AdministradorPagos modelo){
 		super(modelo);
@@ -59,13 +60,16 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 		JPanel montoAPagarContainer = new JPanel();
 		montoAPagarContainer.add(lblNumero);
 		montoAPagarContainer.add(txtMonto);
+		montoAPagarContainer.add(btnConsultar);
 		
 		JPanel tablaChequesContainer = new JPanel();
 		
 		mibarra1 = new JScrollPane();
 		mibarra1.setBounds(40, 300, 400, 130);
 		
-		listCheques = new JTable(new TablaChequesDisponibles());
+		tablaChequesDisponibles = new TablaChequesDisponibles();
+		
+		listCheques = new JTable(tablaChequesDisponibles);
 		listCheques.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		mibarra1.setViewportView(listCheques);
 		
@@ -96,8 +100,7 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 
 	@Override
 	public void mostrarChequesDisponibles(List<Cheque> cheques) {
-		// TODO Auto-generated method stub
-		
+		tablaChequesDisponibles.setCheques(cheques);
 	}
 
 }
