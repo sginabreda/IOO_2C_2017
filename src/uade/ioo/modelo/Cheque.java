@@ -2,7 +2,7 @@ package uade.ioo.modelo;
 
 import java.util.Date;
 
-public class Cheque {
+public abstract class Cheque {
 
 	private int numero;
 	private Date fechaEmision;
@@ -33,4 +33,8 @@ public class Cheque {
 		return fechaVencimiento;
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

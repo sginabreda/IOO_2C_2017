@@ -22,7 +22,7 @@ public class RecibirChequeController implements ActionListener {
 				   vistaAgregarChequeTerceros.getFechaEmision(), 
 				   vistaAgregarChequeTerceros.getMonto());
 		//Operacion existosa
-		vistaAgregarChequeTerceros.operacionExistosa();
+		vistaAgregarChequeTerceros.operacionExitosa();
 	}
 
 }

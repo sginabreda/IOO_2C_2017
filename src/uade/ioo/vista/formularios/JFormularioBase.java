@@ -19,6 +19,7 @@ public abstract class JFormularioBase extends JFrame implements IObservador{
 	public JFormularioBase(AdministradorPagos modelo) throws HeadlessException {
 		super();
 		this.modelo = modelo;
+		this.modelo.registrarObservador(this);
 	}
 
 	public AdministradorPagos getModelo() {

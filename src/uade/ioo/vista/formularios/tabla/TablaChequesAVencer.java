@@ -5,25 +5,25 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import uade.ioo.modelo.Cheque;
+import uade.ioo.modelo.ChequeTerceros;
 import uade.ioo.util.Util;
 
-public class TablaChequesDisponibles extends AbstractTableModel {
+public class TablaChequesAVencer extends AbstractTableModel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4009340209207451574L;
-	private List<Cheque> cheques;
+	private List<ChequeTerceros> cheques;
 	
 	private String[] columnNames = {"Nro",
             "Fecha Emisión",
             "Fecha Vencimiento",
             "Monto",
-            "Tipo"};
+            "Estado"};
 	
-	public TablaChequesDisponibles() {
-		cheques = new ArrayList<Cheque>();
+	public TablaChequesAVencer() {
+		cheques = new ArrayList<ChequeTerceros>();
 	}
 
 	@Override
@@ -38,13 +38,13 @@ public class TablaChequesDisponibles extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Cheque cheque = cheques.get(row);
+		ChequeTerceros cheque = cheques.get(row);
 	    switch(col) {
 	      case 0: return cheque.getNumero();
 	      case 1: return Util.formatDate(cheque.getFechaEmision());
 	      case 2: return Util.formatDate(cheque.getFechaVencimiento());
 	      case 3: return cheque.getMonto();
-	      case 4: return cheque.toString();
+	      case 4: return cheque.getEstadoCheque().toString();
 	      // to complete here...
 	      default: return "";
 	    }
@@ -56,11 +56,11 @@ public class TablaChequesDisponibles extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	public void setCheques(List<Cheque> cheques) {
+	public void setCheques(List<ChequeTerceros> cheques) {
 		this.cheques = cheques;
 	}
 
-	public List<Cheque> getCheques() {
+	public List<ChequeTerceros> getCheques() {
 		return cheques;
 	}
 }

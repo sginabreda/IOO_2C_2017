@@ -8,6 +8,17 @@ public class ChequeTerceros extends Cheque {
 	
 	public ChequeTerceros(int numero, Date fechaEmision, Date fechaVencimiento, double monto) {
 		super(numero, fechaEmision, fechaVencimiento, monto);
+		
+		//Valido si el cheque esta vencido y actualizo el estado
+		determinarEstado(fechaVencimiento);
+	}
+
+	private void determinarEstado(Date fechaVencimiento) {
+		if(new Date().after(fechaVencimiento)){
+			this.estadoCheque = new Vencido();
+		}else{
+			this.estadoCheque = new Recibido();
+		}
 	}
 
 	public Estado getEstadoCheque() {
@@ -20,7 +31,7 @@ public class ChequeTerceros extends Cheque {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Terceros";
+		return "Terceros";
 	}
 
 }

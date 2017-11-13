@@ -1,9 +1,9 @@
 package uade.ioo.modelo;
 
-public abstract class Estado {
+public class Depositado extends Estado {
 	
 	@Override
 	public String toString() {
-		return super.toString();
+		return "Depositado";
 	}
 }

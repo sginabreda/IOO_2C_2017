@@ -1,11 +1,11 @@
 package uade.ioo.modelo;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import uade.ioo.modelo.observer.Observado;
+import uade.ioo.util.Util;
 
 public class AdministradorPagos extends Observado {
 	Chequera c = new Chequera();
@@ -15,20 +15,16 @@ public class AdministradorPagos extends Observado {
 
 		List<Cheque> chequesDisponibles = new ArrayList<Cheque>();
 
-		double montoAcumulado = 0;
-
 		for (Cheque cheque : cheques) {
 
 			if (!esChequeVencido(cheque)) {
-
-				// Agrego el cheque
-				chequesDisponibles.add(cheque);
-
-				// Calculo monto acumulado
-				montoAcumulado += cheque.getMonto();
-
+				
 				// Valido si el monto acumulado cubre el monto a pagar
-				if (montoAcumulado >= monto) {
+				if ( cheque.getMonto() <= monto) {
+					
+					// Agrego el cheque
+					chequesDisponibles.add(cheque);
+					
 					return chequesDisponibles;
 				}
 
@@ -48,13 +44,9 @@ public class AdministradorPagos extends Observado {
 
 	public void registrarChequeTerceros(int numero, Date fechaEmision, double monto) {
 
-		// Calculo la fecha de vencimiento
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(fechaEmision);
-		cal.add(Calendar.DATE, 30);
-
-		this.cheques.add(new ChequeTerceros(numero, fechaEmision, cal.getTime(), monto));
+		this.cheques.add(new ChequeTerceros(numero, fechaEmision, Util.addDays(fechaEmision, 30), monto));
 		this.notificarObservadores();
+		
 	}
 
 	public double getMontoDisponiblePagos() {
@@ -77,5 +69,18 @@ public class AdministradorPagos extends Observado {
 		}
 
 		return total;
+	}
+
+	public void registrarPago(List<Cheque> chequesDisponibles) {
+		for (Cheque cheque : chequesDisponibles) {
+			
+			if(cheque instanceof ChequePropio){
+				c.agregarChequePropio((ChequePropio) cheque);
+			}else{
+				ChequeTerceros chequeTercero = (ChequeTerceros) cheque;
+				chequeTercero.setEstadoCheque(new Entregado());
+			}
+		}
+		
 	}
 }

@@ -6,12 +6,14 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import uade.ioo.controlador.ChequesDisponiblesController;
+import uade.ioo.controlador.ConfirmarPagoServicioController;
+import uade.ioo.controlador.DeterminarChequesDisponiblesController;
 import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.Cheque;
 import uade.ioo.util.Util;
@@ -25,12 +27,15 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 	 */
 	private static final long serialVersionUID = 5792476665330409399L;
 	
-	private JTable listCheques;
+	private JTable tablaCheques;
     private JScrollPane mibarra1;
 	private JLabel lblNumero;
 	private JTextField txtMonto;
 	private JButton btnConsultar;
 	private TablaChequesDisponibles tablaChequesDisponibles;
+	private JPanel mainPanel;
+
+	private JButton btnConfirmar;
 	
 	public JFormularioPagarServicio(AdministradorPagos modelo){
 		super(modelo);
@@ -51,11 +56,16 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 		
 		this.btnConsultar = new JButton();
 		this.btnConsultar.setText("Consultar");
-		this.btnConsultar.addActionListener((new ChequesDisponiblesController(this, getModelo())));
+		this.btnConsultar.addActionListener((new DeterminarChequesDisponiblesController(this, getModelo())));
 		this.add(btnConsultar);
 		
+		this.btnConfirmar = new JButton();
+		this.btnConfirmar.setText("Confirmar Pago");
+		this.btnConfirmar.addActionListener((new ConfirmarPagoServicioController(this, getModelo())));
+		this.add(btnConfirmar);
 		
-		JPanel mainPanel = new JPanel();
+		
+		mainPanel = new JPanel();
 		
 		JPanel montoAPagarContainer = new JPanel();
 		montoAPagarContainer.add(lblNumero);
@@ -67,16 +77,18 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 		mibarra1 = new JScrollPane();
 		mibarra1.setBounds(40, 300, 400, 130);
 		
-		tablaChequesDisponibles = new TablaChequesDisponibles();
-		
-		listCheques = new JTable(tablaChequesDisponibles);
-		listCheques.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		mibarra1.setViewportView(listCheques);
+		tablaCheques = new JTable();
+		tablaCheques.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		mibarra1.setViewportView(tablaCheques);
 		
 		tablaChequesContainer.add(mibarra1);
 		
+		JPanel confirmarContainer = new JPanel();
+		confirmarContainer.add(btnConfirmar);
+		
 		mainPanel.add(montoAPagarContainer);
 		mainPanel.add(tablaChequesContainer);
+		mainPanel.add(confirmarContainer);
 		
 		
 		getContentPane().add(mainPanel);
@@ -100,7 +112,20 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 
 	@Override
 	public void mostrarChequesDisponibles(List<Cheque> cheques) {
+		tablaChequesDisponibles = new TablaChequesDisponibles();
 		tablaChequesDisponibles.setCheques(cheques);
+		tablaCheques.setModel(tablaChequesDisponibles);
+	}
+
+	@Override
+	public void operacionExitosa() {
+		JOptionPane.showMessageDialog(null, "El pago se realizo con exito.");
+		
+	}
+
+	@Override
+	public List<Cheque> getChequesDisponibles() {
+		return tablaChequesDisponibles.getCheques();
 	}
 
 }

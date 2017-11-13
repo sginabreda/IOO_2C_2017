@@ -7,6 +7,6 @@ public interface IVistaAgregarChequeTercero {
 	int getNumero();
 	Date getFechaEmision();
 	double getMonto();
-	void operacionExistosa();
+	void operacionExitosa();
 	
 }

@@ -8,4 +8,6 @@ public interface IVistaPagarServicio {
 	
 	double getMontoAPagar();
 	void mostrarChequesDisponibles(List<Cheque> cheques);
+	void operacionExitosa();
+	List<Cheque> getChequesDisponibles();
 }

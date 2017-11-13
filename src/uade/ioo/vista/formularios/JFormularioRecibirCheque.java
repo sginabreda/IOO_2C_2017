@@ -117,7 +117,7 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 	}
 
 	@Override
-	public void operacionExistosa() {
+	public void operacionExitosa() {
 		JOptionPane.showMessageDialog(null, "El cheque Nro: "+txtNumero.getText()+" se registro con existo.");
 
 		//Limpio el formulario

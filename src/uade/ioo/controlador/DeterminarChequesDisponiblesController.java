@@ -8,13 +8,13 @@ import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.Cheque;
 import uade.ioo.vista.comportamiento.IVistaPagarServicio;
 
-public class ChequesDisponiblesController implements ActionListener {
+public class DeterminarChequesDisponiblesController implements ActionListener {
 	
 	
 	private IVistaPagarServicio iPagarServicio;
 	private AdministradorPagos modelo;
 	
-	public ChequesDisponiblesController(IVistaPagarServicio iPagarServicio, AdministradorPagos modelo) {
+	public DeterminarChequesDisponiblesController(IVistaPagarServicio iPagarServicio, AdministradorPagos modelo) {
 		this.iPagarServicio = iPagarServicio;
 		this.modelo = modelo;
 		
