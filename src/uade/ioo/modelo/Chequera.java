@@ -1,5 +1,6 @@
 package uade.ioo.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Chequera {
@@ -10,6 +11,7 @@ public class Chequera {
 	public Chequera() {
 		super();
 		this.ultimoNumero = 0;
+		this.chequesEmitidos = new ArrayList<ChequePropio>();
 	}
 
 	public int getUltimoNumero() {

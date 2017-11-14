@@ -20,7 +20,10 @@ public class DepositarChequesAVencerController implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+
+		modelo.depositar(vistaChequesAVencer.getChequesADepositar());
 		
+		vistaChequesAVencer.operacionExitosa();
 
 	}
 

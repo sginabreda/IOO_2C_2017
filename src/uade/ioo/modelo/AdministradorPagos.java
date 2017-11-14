@@ -8,14 +8,22 @@ import uade.ioo.modelo.observer.Observado;
 import uade.ioo.util.Util;
 
 public class AdministradorPagos extends Observado {
-	Chequera c = new Chequera();
-	List<Cheque> cheques = new ArrayList<Cheque>();
+	
+	Chequera chequera;
+	List<ChequeTerceros> chequesTerceros;
+	Banco banco;
+	
+	public AdministradorPagos() {
+		chequera = new Chequera();
+		chequesTerceros = new ArrayList<ChequeTerceros>();
+		banco = new Banco();
+	}
 
 	public List<Cheque> obtenerChequesDisponibles(double monto) {
 
 		List<Cheque> chequesDisponibles = new ArrayList<Cheque>();
 
-		for (Cheque cheque : cheques) {
+		for (Cheque cheque : chequesTerceros) {
 
 			if (!esChequeVencido(cheque)) {
 				
@@ -36,21 +44,30 @@ public class AdministradorPagos extends Observado {
 	}
 
 	public Cheque generarChequeNuevo(double monto) {
-		int n = c.getUltimoNumero();
+		int n = chequera.getUltimoNumero();
 		Cheque nuevo = new ChequePropio(n, new Date(), monto);
-		c.setUltimoNumero(n++);
+		chequera.setUltimoNumero(n++);
 		return nuevo;
 	}
 
 	public void registrarChequeTerceros(int numero, Date fechaEmision, double monto) {
 
-		this.cheques.add(new ChequeTerceros(numero, fechaEmision, Util.addDays(fechaEmision, 30), monto));
+		this.chequesTerceros.add(new ChequeTerceros(numero, fechaEmision, Util.addDays(fechaEmision, 30), monto));
 		this.notificarObservadores();
 		
 	}
 
 	public double getMontoDisponiblePagos() {
-		return calcularMontoTotal(cheques);
+		double total = 0;
+
+		for (Cheque cheque : chequesTerceros) {
+
+			if (!esChequeVencido(cheque)) {
+				total += cheque.getMonto();
+			}
+		}
+
+		return total;
 	}
 
 	public boolean esChequeVencido(Cheque cheque) {
@@ -75,12 +92,31 @@ public class AdministradorPagos extends Observado {
 		for (Cheque cheque : chequesDisponibles) {
 			
 			if(cheque instanceof ChequePropio){
-				c.agregarChequePropio((ChequePropio) cheque);
+				chequera.agregarChequePropio((ChequePropio) cheque);
 			}else{
 				ChequeTerceros chequeTercero = (ChequeTerceros) cheque;
 				chequeTercero.setEstadoCheque(new Entregado());
 			}
 		}
 		
+	}
+
+	public void depositar(List<ChequeTerceros> chequesADepositar) {
+		for (ChequeTerceros cheque : chequesADepositar) {
+			banco.depositarCheque(cheque);
+		}
+	}
+
+	public List<ChequeTerceros> obtenerChequesAVencer() {
+		
+		List<ChequeTerceros> chequesAVencer = new ArrayList<ChequeTerceros>();
+		
+		for (ChequeTerceros cheque : chequesTerceros) {
+			if(cheque.getEstadoCheque() instanceof Recibido){
+				chequesAVencer.add(cheque);
+			}
+		}
+		
+		return chequesAVencer;
 	}
 }

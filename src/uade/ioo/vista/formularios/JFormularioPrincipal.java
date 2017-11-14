@@ -58,7 +58,7 @@ public class JFormularioPrincipal extends JFormularioBase {
 		formularios.add(form_pagar_servicio);
 		
 		JMenuItem form_cheques_terc_vence;
-		form_cheques_terc_vence = new JMenuItem("Cheques de Terceros pr�ximos a vencer");
+		form_cheques_terc_vence = new JMenuItem("Cheques de Terceros proximos a vencer");
 		form_cheques_terc_vence.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
