@@ -99,12 +99,14 @@ public class AdministradorPagos extends Observado {
 			}
 		}
 		
+		this.notificarObservadores();
 	}
 
 	public void depositar(List<ChequeTerceros> chequesADepositar) {
 		for (ChequeTerceros cheque : chequesADepositar) {
 			banco.depositarCheque(cheque);
 		}
+		this.notificarObservadores();
 	}
 
 	public List<ChequeTerceros> obtenerChequesAVencer() {
