@@ -21,7 +21,7 @@ public class ConfirmarPagoServicioController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		modelo.registrarPago(iPagarServicio.getChequesDisponibles());
+		modelo.registrarPago(iPagarServicio.getChequesDisponibles(),iPagarServicio.getMontoAPagar());
 		
 		iPagarServicio.operacionExitosa();
 	}

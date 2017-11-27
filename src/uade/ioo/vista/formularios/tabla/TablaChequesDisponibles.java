@@ -17,7 +17,7 @@ public class TablaChequesDisponibles extends AbstractTableModel {
 	private List<Cheque> cheques;
 	
 	private String[] columnNames = {"Nro",
-            "Fecha EmisiÃ³n",
+            "Fecha Emisión",
             "Fecha Vencimiento",
             "Monto",
             "Tipo"};

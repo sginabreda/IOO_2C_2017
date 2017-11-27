@@ -63,7 +63,7 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 		this.add(txtNumero);
 		
 		this.lblFechaEmision = new JLabel();
-		this.lblFechaEmision.setText("Fecha emisiÃ³n");
+		this.lblFechaEmision.setText("Fecha emisión");
 		this.add(lblFechaEmision);
 		
 		this.txtFechaEmision = new JTextField();
@@ -85,51 +85,69 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 
 	}
 
-	@Override
+	
 	public int getNumero() {
-		if (Util.isInteger(this.txtNumero.getText())){
-			return Integer.parseInt(this.txtNumero.getText());
+		if(!txtNumero.getText().equals("")){
+			if (Util.isInteger(this.txtNumero.getText())){
+				return Integer.parseInt(this.txtNumero.getText());
+			}
+		}else{
+			JOptionPane.showMessageDialog(null, "Número de cheque es un campo obligatorio");
 		}
-		//TODO : Validar Si falla
 		return 0;
 	}
 
-	@Override
-	public Date getFechaEmision() {
-	    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		try {
-			return formatter.parse(txtFechaEmision.getText());
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Formato de fecha Invalido - (dd-MM-yyyy)");
-			e.printStackTrace();
-		}
-			return null;
-		
-	}
+	 public Date getFechaEmision(){
+	    	
+	    	Date date=null;
+	    	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-	@Override
+	    	if(!txtFechaEmision.getText().equals("")){
+				try {
+					date = formato.parse(txtFechaEmision.getText());
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar una fecha válida (dd/mm/aaaa)");
+					e.printStackTrace();
+				}
+	    		
+	    	}else {
+				JOptionPane.showMessageDialog(null, "Fecha emisión es un campo obligatorio");
+	    	}
+	    	
+			
+	    	return date;
+	    }
+	
 	public double getMonto() {
-		if (Util.isDouble(this.txtMonto.getText())){
-			return Double.parseDouble(this.txtMonto.getText());
+		if(!txtMonto.getText().equals("")){
+			if (Util.isDouble(this.txtMonto.getText())){
+				return Double.parseDouble(this.txtMonto.getText());
+			}
+		}else{
+			JOptionPane.showMessageDialog(null, "Monto es un campo obligatorio");
 		}
-		//TODO : Validar Si falla
 		return 0;
 	}
 
-	@Override
+	
 	public void operacionExitosa() {
-		JOptionPane.showMessageDialog(null, "El cheque Nro: "+txtNumero.getText()+" se registro con existo.");
+		JOptionPane.showMessageDialog(null, "El cheque Nro.: "+txtNumero.getText()+" se registro con exito.");
+		
+		limpiarCampos();
+	}
 
-		//Limpio el formulario
+	
+	private void limpiarCampos() {
 		txtNumero.setText("");
 		txtFechaEmision.setText("");
-		txtMonto.setText("");
+		txtMonto.setText("");		
 	}
 
-	@Override
+
 	public void actualizar() {
-		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

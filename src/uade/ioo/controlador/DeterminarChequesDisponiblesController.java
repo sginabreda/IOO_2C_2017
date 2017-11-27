@@ -25,7 +25,7 @@ public class DeterminarChequesDisponiblesController implements ActionListener {
 		double montoAPagar = iPagarServicio.getMontoAPagar();
 		//Obtengo los cheques disponibles
 		List<Cheque> chequesDisponibles = modelo.obtenerChequesDisponibles(montoAPagar);
-		
+		 
 		//Obtengo el monto
 		double calcularMontoTotal = modelo.calcularMontoTotal(chequesDisponibles);
 		

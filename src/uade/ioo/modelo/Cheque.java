@@ -21,6 +21,10 @@ public abstract class Cheque {
 		return numero;
 	}
 
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
+
 	public Date getFechaEmision() {
 		return fechaEmision;
 	}

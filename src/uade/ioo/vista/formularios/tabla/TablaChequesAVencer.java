@@ -10,14 +10,11 @@ import uade.ioo.util.Util;
 
 public class TablaChequesAVencer extends AbstractTableModel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4009340209207451574L;
 	private List<ChequeTerceros> cheques;
 	
 	private String[] columnNames = {"Nro",
-            "Fecha EmisiÃ³n",
+            "Fecha Emisión",
             "Fecha Vencimiento",
             "Monto",
             "Estado"};

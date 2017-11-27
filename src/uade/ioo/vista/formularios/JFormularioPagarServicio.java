@@ -22,9 +22,6 @@ import uade.ioo.vista.formularios.tabla.TablaChequesDisponibles;
 
 public class JFormularioPagarServicio extends JFormularioBase implements IVistaPagarServicio{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5792476665330409399L;
 	
 	private JTable tablaCheques;

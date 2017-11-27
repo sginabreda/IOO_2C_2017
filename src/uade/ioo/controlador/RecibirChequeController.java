@@ -15,7 +15,6 @@ public class RecibirChequeController implements ActionListener {
 		this.vistaAgregarChequeTerceros = vistaAgregarChequeTerceros;
 		this.modelo = modelo;
 	}
-	//comentario de prueba Belen
 	 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import com.sun.javafx.scene.control.skin.TableColumnHeader;
-
 import uade.ioo.controlador.DepositarChequesAVencerController;
 import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.ChequeTerceros;
@@ -21,9 +19,6 @@ import uade.ioo.vista.formularios.tabla.TablaChequesAVencer;
 
 public class JFormularioChequesAVencer extends JFormularioBase implements IVistaChequesAVencer {
 
-	/**
-	 * Test
-	 */
 	private static final long serialVersionUID = -3095074904976216955L;
 	private JPanel mainPanel;
 	private JScrollPane mibarra1;
@@ -71,7 +66,7 @@ public class JFormularioChequesAVencer extends JFormularioBase implements IVista
 		tablaChequesContainer.add(mibarra1);
 		
 		JPanel confirmarContainer = new JPanel();
-		confirmarContainer.add(btnDepositar);
+		confirmarContainer.add( btnDepositar);
 		
 		mainPanel.add(tituloContainer);
 		mainPanel.add(tablaChequesContainer);
@@ -103,7 +98,7 @@ public class JFormularioChequesAVencer extends JFormularioBase implements IVista
 
 	@Override
 	public void operacionExitosa() {
-		JOptionPane.showMessageDialog(null, "El deposito se realizo con exito.");
+		JOptionPane.showMessageDialog(null, "El deposito se realizo con éxito.");
 		validarTablaVacia();
 		tablaCheques.setModel(new TablaChequesAVencer());
 	}

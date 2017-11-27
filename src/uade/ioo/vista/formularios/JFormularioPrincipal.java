@@ -73,7 +73,7 @@ public class JFormularioPrincipal extends JFormularioBase {
 		form_reporte.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFrame form4 = new JFormularioReporteMontos();
+				JFrame form4 = new JFormularioReporteMontos(getModelo());
 				form4.setVisible(true);
 			}
 		});
