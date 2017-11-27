@@ -13,8 +13,7 @@ public class AdministradorPagos extends Observado {
 	private List<ChequeTerceros> chequesTerceros;
 	private Banco banco;
 	private Double importePagos = 0D;
-	private Double importeEmitidos= 0D;
-	private Double importePorVencer= 0D;
+	private Double importeEmitidos = 0D;
 
 	public AdministradorPagos() {
 		chequera = new Chequera();
@@ -54,25 +53,25 @@ public class AdministradorPagos extends Observado {
 		return chequeTerceros.getEstadoCheque() instanceof Entregado;
 	}
 
-	
 	public Cheque generarChequeNuevo(double monto) {
 		int n = chequera.getUltimoNumero();
 		Cheque nuevo = new ChequePropio(n, new Date(), monto);
 		chequera.setUltimoNumero(n++);
-		
+
 		importeEmitidos += monto;
 		return nuevo;
 	}
-	public String getMontoEmitidosTotal(){
+
+	public String getMontoEmitidosTotal() {
 		return importeEmitidos.toString();
 	}
-	
+
 	public void registrarChequeTerceros(int numero, Date fechaEmision,
 			double monto) {
 
 		this.chequesTerceros.add(new ChequeTerceros(numero, fechaEmision, Util
 				.addDays(fechaEmision, 30), monto));
-
+		
 		this.notificarObservadores();
 
 	}
@@ -108,35 +107,34 @@ public class AdministradorPagos extends Observado {
 		return total;
 	}
 
-
 	public void registrarPago(List<Cheque> chequesDisponibles, double monto) {
 		for (Cheque cheque : chequesDisponibles) {
-
+			double montoParcial=0D;
+			
 			if (cheque instanceof ChequePropio) {
 				chequera.agregarChequePropio((ChequePropio) cheque);
+				montoParcial=(monto - cheque.getMonto());
 			} else {
 				ChequeTerceros chequeTercero = (ChequeTerceros) cheque;
 				chequeTercero.setEstadoCheque(new Entregado());
-				cheque.setMonto(chequeTercero.getMonto() - monto);
+				chequeTercero.setMonto(montoParcial);
 			}
 		}
 		importePagos += monto;
 		this.notificarObservadores();
 	}
-	
-	public String getMontoPagoTotal(){
+
+	public String getMontoPagoTotal() {
 		return importePagos.toString();
 	}
 
-	
 	public void depositar(List<ChequeTerceros> chequesADepositar) {
 		for (ChequeTerceros cheque : chequesADepositar) {
 			banco.depositarCheque(cheque);
-		}
-		
+			cheque.setMonto(0);
+			}
 		this.notificarObservadores();
 	}
-	
 
 	public List<ChequeTerceros> obtenerChequesAVencer() {
 
@@ -144,16 +142,11 @@ public class AdministradorPagos extends Observado {
 
 		for (ChequeTerceros cheque : chequesTerceros) {
 			if (cheque.getEstadoCheque() instanceof Recibido) {
-				chequesAVencer.add(cheque);	
-				importePorVencer += cheque.getMonto();
+				chequesAVencer.add(cheque);
 			}
 		}
 
 		return chequesAVencer;
-	}
-	
-	public String getMontoPorVencerTotal(){
-		return importePorVencer.toString();
 	}
 
 }

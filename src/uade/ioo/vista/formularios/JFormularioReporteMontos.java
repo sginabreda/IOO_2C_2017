@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.Banco;
+import uade.ioo.modelo.ChequeTerceros;
 
 public class JFormularioReporteMontos extends JFormularioBase {
 
@@ -87,7 +88,7 @@ public class JFormularioReporteMontos extends JFormularioBase {
 		fila[1] = this.modelo.getMontoPagoTotal();
 		fila[2] = Banco.getMontoDepositoTotal();
 		fila[3] = this.modelo.getMontoEmitidosTotal();
-		fila[4] = this.modelo.getMontoPorVencerTotal();
+		fila[4] = ChequeTerceros.getMontoPorVencerTotal();
 
 		((DefaultTableModel) tablaCheques.getModel()).addRow(fila);
 
