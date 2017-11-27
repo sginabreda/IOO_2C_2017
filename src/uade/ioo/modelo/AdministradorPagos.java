@@ -8,11 +8,13 @@ import uade.ioo.modelo.observer.Observado;
 import uade.ioo.util.Util;
 
 public class AdministradorPagos extends Observado {
-	
+
 	private Chequera chequera;
 	private List<ChequeTerceros> chequesTerceros;
 	private Banco banco;
-
+	private Double importePagos = 0D;
+	private Double importeEmitidos= 0D;
+	private Double importePorVencer= 0D;
 
 	public AdministradorPagos() {
 		chequera = new Chequera();
@@ -25,16 +27,16 @@ public class AdministradorPagos extends Observado {
 		List<Cheque> chequesDisponibles = new ArrayList<Cheque>();
 
 		for (Cheque cheque : chequesTerceros) {
-			
+
 			if (!esChequeVencido(cheque) && !esChequeEntregado(cheque)) {
-				
+
 				System.out.println(cheque.getMonto());
 				// Valido si el monto acumulado cubre el monto a pagar
 				if (cheque.getMonto() <= monto) {
-					
+
 					// Agrego el cheque
 					chequesDisponibles.add(cheque);
-					
+
 					return chequesDisponibles;
 				}
 
@@ -46,32 +48,40 @@ public class AdministradorPagos extends Observado {
 	}
 
 	public static boolean esChequeEntregado(Cheque cheque) {
-		
+
 		ChequeTerceros chequeTerceros = (ChequeTerceros) cheque;
-		
+
 		return chequeTerceros.getEstadoCheque() instanceof Entregado;
 	}
 
+	
 	public Cheque generarChequeNuevo(double monto) {
 		int n = chequera.getUltimoNumero();
 		Cheque nuevo = new ChequePropio(n, new Date(), monto);
 		chequera.setUltimoNumero(n++);
+		
+		importeEmitidos += monto;
 		return nuevo;
 	}
+	public String getMontoEmitidosTotal(){
+		return importeEmitidos.toString();
+	}
+	
+	public void registrarChequeTerceros(int numero, Date fechaEmision,
+			double monto) {
 
-	public void registrarChequeTerceros(int numero, Date fechaEmision, double monto) {
+		this.chequesTerceros.add(new ChequeTerceros(numero, fechaEmision, Util
+				.addDays(fechaEmision, 30), monto));
 
-		this.chequesTerceros.add(new ChequeTerceros(numero, fechaEmision, Util.addDays(fechaEmision, 30), monto));
-		
 		this.notificarObservadores();
-		
+
 	}
 
 	public double getMontoDisponiblePagos() {
 		double total = 0;
 
 		for (Cheque cheque : chequesTerceros) {
-			
+
 			if (!esChequeVencido(cheque)) {
 				total += cheque.getMonto();
 			}
@@ -98,38 +108,52 @@ public class AdministradorPagos extends Observado {
 		return total;
 	}
 
-	public void registrarPago(List<Cheque> chequesDisponibles,double monto) {
+
+	public void registrarPago(List<Cheque> chequesDisponibles, double monto) {
 		for (Cheque cheque : chequesDisponibles) {
-			
-			if(cheque instanceof ChequePropio){
+
+			if (cheque instanceof ChequePropio) {
 				chequera.agregarChequePropio((ChequePropio) cheque);
-			}else{
+			} else {
 				ChequeTerceros chequeTercero = (ChequeTerceros) cheque;
 				chequeTercero.setEstadoCheque(new Entregado());
-				cheque.setMonto(chequeTercero.getMonto()- monto);
+				cheque.setMonto(chequeTercero.getMonto() - monto);
 			}
 		}
-		
+		importePagos += monto;
 		this.notificarObservadores();
 	}
+	
+	public String getMontoPagoTotal(){
+		return importePagos.toString();
+	}
 
+	
 	public void depositar(List<ChequeTerceros> chequesADepositar) {
 		for (ChequeTerceros cheque : chequesADepositar) {
 			banco.depositarCheque(cheque);
 		}
+		
 		this.notificarObservadores();
 	}
+	
 
 	public List<ChequeTerceros> obtenerChequesAVencer() {
-		
+
 		List<ChequeTerceros> chequesAVencer = new ArrayList<ChequeTerceros>();
-		
+
 		for (ChequeTerceros cheque : chequesTerceros) {
-			if(cheque.getEstadoCheque() instanceof Recibido){
-				chequesAVencer.add(cheque);
+			if (cheque.getEstadoCheque() instanceof Recibido) {
+				chequesAVencer.add(cheque);	
+				importePorVencer += cheque.getMonto();
 			}
 		}
-		
+
 		return chequesAVencer;
 	}
+	
+	public String getMontoPorVencerTotal(){
+		return importePorVencer.toString();
+	}
+
 }

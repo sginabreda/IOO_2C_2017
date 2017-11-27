@@ -9,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import uade.ioo.modelo.AdministradorPagos;
+import uade.ioo.modelo.observer.IObservador;
 
 public class JFormularioPrincipal extends JFormularioBase {
 
@@ -17,7 +18,7 @@ public class JFormularioPrincipal extends JFormularioBase {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JFormularioPrincipal(AdministradorPagos modelo) {
+	public JFormularioPrincipal(final AdministradorPagos modelo) {
 		super(modelo);
 		
 		this.setSize(640, 480);
@@ -75,6 +76,7 @@ public class JFormularioPrincipal extends JFormularioBase {
 			public void actionPerformed(ActionEvent e) {
 				JFrame form4 = new JFormularioReporteMontos(getModelo());
 				form4.setVisible(true);
+//				modelo.registrarObservador((IObservador)form4);
 			}
 		});
 		formularios.add(form_reporte);

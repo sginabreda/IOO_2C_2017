@@ -3,7 +3,6 @@ package uade.ioo.modelo;
 import java.util.Date;
 
 public class ChequeTerceros extends Cheque {
-	private double monto=0;
 	
 	private Estado estadoCheque;
 	

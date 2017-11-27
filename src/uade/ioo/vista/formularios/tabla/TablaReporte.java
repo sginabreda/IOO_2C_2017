@@ -3,14 +3,13 @@ package uade.ioo.vista.formularios.tabla;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 import uade.ioo.modelo.AdministradorPagos;
 import uade.ioo.modelo.Cheque;
 import uade.ioo.modelo.ChequeTerceros;
-import uade.ioo.util.Util;
 
-public class TablaReporte extends AbstractTableModel {
+public class TablaReporte extends DefaultTableModel {
 
 	private static final long serialVersionUID = -4009340209207451574L;
 	private List<Cheque> cheques;

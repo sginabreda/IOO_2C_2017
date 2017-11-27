@@ -10,10 +10,16 @@ public class Banco {
 	public Banco() {
 		cheques = new ArrayList<>();
 	}
-
+	
+	private static Double importeDeposito= 0D;
+	
 	public void depositarCheque(ChequeTerceros cheque) {
 		cheque.setEstadoCheque(new Depositado());
 		cheques.add(cheque);
+		importeDeposito += cheque.getMonto();
 	}
 	
+	public static String getMontoDepositoTotal(){
+		return importeDeposito.toString();
+	}
 }

@@ -10,9 +10,6 @@ import uade.ioo.util.Util;
 
 public class TablaChequesDisponibles extends AbstractTableModel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4009340209207451574L;
 	private List<Cheque> cheques;
 	
