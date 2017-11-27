@@ -9,10 +9,10 @@ import uade.ioo.util.Util;
 
 public class AdministradorPagos extends Observado {
 	
-	Chequera chequera;
+	private Chequera chequera;
 	private List<ChequeTerceros> chequesTerceros;
-	Banco banco;
-	private List<Cheque> listaCheques = new ArrayList<Cheque>();
+	private Banco banco;
+
 
 	public AdministradorPagos() {
 		chequera = new Chequera();
@@ -25,11 +25,12 @@ public class AdministradorPagos extends Observado {
 		List<Cheque> chequesDisponibles = new ArrayList<Cheque>();
 
 		for (Cheque cheque : chequesTerceros) {
-
-			if (!esChequeVencido(cheque)) {
+			
+			if (!esChequeVencido(cheque) && !esChequeEntregado(cheque)) {
+				
 				System.out.println(cheque.getMonto());
 				// Valido si el monto acumulado cubre el monto a pagar
-				if (cheque.getMonto() >= monto) {
+				if (cheque.getMonto() <= monto) {
 					
 					// Agrego el cheque
 					chequesDisponibles.add(cheque);
@@ -42,6 +43,13 @@ public class AdministradorPagos extends Observado {
 		}
 
 		return chequesDisponibles;
+	}
+
+	public static boolean esChequeEntregado(Cheque cheque) {
+		
+		ChequeTerceros chequeTerceros = (ChequeTerceros) cheque;
+		
+		return chequeTerceros.getEstadoCheque() instanceof Entregado;
 	}
 
 	public Cheque generarChequeNuevo(double monto) {

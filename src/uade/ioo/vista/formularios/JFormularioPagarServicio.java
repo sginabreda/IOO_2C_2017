@@ -1,6 +1,8 @@
 package uade.ioo.vista.formularios;
 
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -49,6 +51,17 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 		
 		this.txtMonto = new JTextField();
 		this.txtMonto.setColumns(12);
+		this.txtMonto.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)
+						|| (c == KeyEvent.VK_SLASH || c == KeyEvent.VK_COMMA || c == KeyEvent.VK_PERIOD))) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar un monto valido");
+					e.consume();
+				}
+			}
+		});
+		
 		this.add(txtMonto);
 		
 		this.btnConsultar = new JButton();
@@ -112,11 +125,14 @@ public class JFormularioPagarServicio extends JFormularioBase implements IVistaP
 		tablaChequesDisponibles = new TablaChequesDisponibles();
 		tablaChequesDisponibles.setCheques(cheques);
 		tablaCheques.setModel(tablaChequesDisponibles);
+		btnConfirmar.setEnabled(true);
 	}
 
 	@Override
 	public void operacionExitosa() {
 		JOptionPane.showMessageDialog(null, "El pago se realizo con exito.");
+		tablaCheques.setModel(new TablaChequesDisponibles());
+		btnConfirmar.setEnabled(false);
 		
 	}
 
