@@ -61,7 +61,7 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 		this.add(txtNumero);
 
 		this.lblFechaEmision = new JLabel();
-		this.lblFechaEmision.setText("Fecha emisiï¿½n");
+		this.lblFechaEmision.setText("Fecha emisión");
 		this.add(lblFechaEmision);
 
 		this.txtFechaEmision = new JTextField();
@@ -99,7 +99,7 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 				return Integer.parseInt(this.txtNumero.getText());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Nï¿½mero de cheque es un campo obligatorio");
+			JOptionPane.showMessageDialog(null, "Número de cheque es un campo obligatorio");
 		}
 		return 0;
 	}
@@ -113,12 +113,12 @@ public class JFormularioRecibirCheque extends JFormularioBase implements IVistaA
 			try {
 				date = formato.parse(txtFechaEmision.getText());
 			} catch (ParseException e) {
-				JOptionPane.showMessageDialog(null, "Debe ingresar una fecha vï¿½lida (dd/mm/aaaa)");
+				JOptionPane.showMessageDialog(null, "Debe ingresar una fecha válida (dd/mm/aaaa)");
 				e.printStackTrace();
 			}
 
 		} else {
-			JOptionPane.showMessageDialog(null, "Fecha emisiï¿½n es un campo obligatorio");
+			JOptionPane.showMessageDialog(null, "Fecha emisión es un campo obligatorio");
 		}
 
 		return date;

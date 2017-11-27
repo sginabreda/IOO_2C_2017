@@ -57,8 +57,6 @@ public class AdministradorPagos extends Observado {
 		int n = chequera.getUltimoNumero();
 		Cheque nuevo = new ChequePropio(n, new Date(), monto);
 		chequera.setUltimoNumero(n++);
-
-		importeEmitidos += monto;
 		return nuevo;
 	}
 
@@ -114,6 +112,7 @@ public class AdministradorPagos extends Observado {
 			if (cheque instanceof ChequePropio) {
 				chequera.agregarChequePropio((ChequePropio) cheque);
 				montoParcial=(monto - cheque.getMonto());
+				importeEmitidos += cheque.getMonto();
 			} else {
 				ChequeTerceros chequeTercero = (ChequeTerceros) cheque;
 				chequeTercero.setEstadoCheque(new Entregado());
@@ -147,6 +146,18 @@ public class AdministradorPagos extends Observado {
 		}
 
 		return chequesAVencer;
+	}
+
+	public Object getMontoPorVencerTotal() {
+		
+		double total = 0;
+		for (ChequeTerceros cheque : chequesTerceros) {
+			boolean esRecibido = cheque.getEstadoCheque() instanceof Recibido;
+			if (esRecibido) {
+				total =+ cheque.getMonto();
+			}
+		}
+		return total;
 	}
 
 }

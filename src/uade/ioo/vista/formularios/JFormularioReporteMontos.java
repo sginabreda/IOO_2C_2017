@@ -88,7 +88,7 @@ public class JFormularioReporteMontos extends JFormularioBase {
 		fila[1] = this.modelo.getMontoPagoTotal();
 		fila[2] = Banco.getMontoDepositoTotal();
 		fila[3] = this.modelo.getMontoEmitidosTotal();
-		fila[4] = ChequeTerceros.getMontoPorVencerTotal();
+		fila[4] = this.modelo.getMontoPorVencerTotal();
 
 		((DefaultTableModel) tablaCheques.getModel()).addRow(fila);
 
